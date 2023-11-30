@@ -16,8 +16,7 @@ module.exports = {
   },
   updateProducts: async (req, res) => {
     const { id } = req.params;
-    const { title, description, supplier, supplierlocation, price } = req.body;
-
+    const { title, description, supplier, supplierlocation, price,imageUrl } = req.body;
     if (!mongoose.Types.ObjectId.isValid(id))
       return res.status(404).send(`No product with id: ${id}`);
 
@@ -28,6 +27,7 @@ module.exports = {
       supplierlocation,
       price,
       _id: id,
+      imageUrl
     };
 
     await ProductDetails.findByIdAndUpdate(id, updateProduct, { new: true });
