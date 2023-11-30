@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const cors = require('cors')
 const app = express();
 const port = 3000;
+const cloudinary = require('cloudinary')
 
 const productRouter = require('./routes/ProductsRoute');
 const authRouter = require('./routes/auth')
@@ -17,6 +18,12 @@ mongoose
   .connect(process.env.MONOGO_URL)
   .then(() => console.log("db connected"))
   .catch((err) => console.log(err));
+
+cloudinary.v2.config({
+  cloud_name:process.env.CLOUDINARY_NAME,
+  api_key:process.env.CLOUDINARY_KEY,
+  api_secret:process.env.CLOUDINARY_SECRET
+})
 
 app.use(express.json({limit:'10mb'}))
 app.use(cors());
